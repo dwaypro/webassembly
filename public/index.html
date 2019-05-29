@@ -8,9 +8,16 @@
     <h1>Web Assembly</h1>
     <script>
 
+      // initialize wasm with custom memory (array buffer)
+      // 20 pages: 20 * 64kb(128kb);
+      const wasmMemory = new WebAssembly.Memory({ initial: 2});
+      console.log("TCL: wasmMemory", wasmMemory)
+      
       // read a string out of Web Assembly memory
       const readMemStr = (offset, length) => {        
-        const strBuffer = new Uint8Array(wasm.instance.exports.memory.buffer, offset, length);
+        console.log("TCL: wasmMemory.buffer", wasmMemory.buffer)
+        const strBuffer = new Uint8Array(wasmMemory.buffer, offset, length);
+        // const strBuffer = new Uint8Array(wasm.instance.exports.memory.buffer, offset, length);
         const str = new TextDecoder().decode(strBuffer);
         console.log('str', str);
 
@@ -25,7 +32,8 @@
       const imports = {
         env:{
           numLog: console.log,
-          strLog: readMemStr
+          strLog: readMemStr,
+          memory: wasmMemory
         }
       }
 
