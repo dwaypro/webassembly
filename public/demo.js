@@ -18,8 +18,6 @@
 // can continue to use Module afterwards as well.
 var Module = typeof Module !== 'undefined' ? Module : {};
 
-
-
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
 // {{PRE_JSES}}
@@ -38,11 +36,6 @@ for (key in Module) {
 }
 
 Module['arguments'] = [];
-
-// you can add arguments to main here if needed!
-// also to figure is how to have the program configured to be more like a library
-Module['arguments'].push('first_param');
-Module['arguments'].push('second_param');
 Module['thisProgram'] = './this.program';
 Module['quit'] = function(status, toThrow) {
   throw toThrow;
@@ -1227,11 +1220,11 @@ function updateGlobalBufferViews() {
 
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 6704,
+    STACK_BASE = 6816,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 5249584,
-    DYNAMIC_BASE = 5249584,
-    DYNAMICTOP_PTR = 6672;
+    STACK_MAX = 5249696,
+    DYNAMIC_BASE = 5249696,
+    DYNAMICTOP_PTR = 6784;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1711,7 +1704,7 @@ var ASM_CONSTS = [];
 
 
 
-// STATICTOP = STATIC_BASE + 5680;
+// STATICTOP = STATIC_BASE + 5792;
 /* global initializers */ /*__ATINIT__.push();*/
 
 
@@ -1722,7 +1715,7 @@ var ASM_CONSTS = [];
 
 
 /* no memory initializer */
-var tempDoublePtr = 6688
+var tempDoublePtr = 6800
 assert(tempDoublePtr % 8 == 0);
 
 function copyTempFloat(ptr) { // functions, because inlining this code increases code size too much
